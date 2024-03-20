@@ -37,14 +37,38 @@
 */
 char* concatena(const char* dest, const char* orig)
 {
+	size_t dest_t = strlen(dest);
+	size_t orig_t = strlen(orig);
+	size_t total;
+	char* res = (char*) malloc((total=dest_t+orig_t));
+
+	strcpy(res, dest);
+	strcat(res, orig);
 	/* TODO faça a função aqui! */
-	return  NULL;
+	return  res;
 }
 
 /* Recebe um texto 'texto' como entrada e um caractere 'c'
 	Retorna um vetor de char* com a quebra das palavras.
 */
-char** quebra_palavras(const char* texto, char c) 
+char** quebra_palavras(char* texto, char c) 
 {
-	return NULL;
+	int count=0;
+	char *token, **s;
+	char delim[2] = {c, '\0'};
+	for (int i=0; 1<strlen(texto);i++){
+		if(texto [i] == c && texto [i-1] != c)
+			count++;
+	}
+	s= (char**) calloc(count+1, sizeof(char*));
+	token=strtok(texto,delim);
+	int i=0;
+	while (token !=NULL){
+		char* palavra = (char* )malloc (strlen(token)+1*sizeof(char));
+		strcpy(palavra, token);
+		s[i] = palavra;
+		token = strtok(NULL, delim);
+		i++;
+	}
+	return s;		
 }
